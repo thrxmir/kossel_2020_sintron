@@ -18,6 +18,8 @@ m3_radius = 3.4/2;
 m3_nut_w  = 5.5+0.3;
 m3_nut_h = 2.4;
 
+cylinder_quality = 240;
+
 module carriage() {
 	difference() {
 	union() {
@@ -27,7 +29,7 @@ module carriage() {
           translate([0, 0, horn_thickness/2+1])
             cube([separation, height, horn_thickness+10], center=true);
           translate([horn_x, horn_y, horn_thickness/2]) rotate([0, 90, 0])
-            cylinder(r1=14, r2=3.4, h=separation/2-horn_x);
+            cylinder(r1=14, r2=3.4, h=separation/2-horn_x,$fn=cylinder_quality);
         }
       }
 
@@ -63,13 +65,13 @@ module carriage() {
 
 	translate([0,horn_y,horn_thickness/2])
 	rotate([0,90,0])
-		cylinder(r=2, h=separation+1, center=true,$fn=24);
+		cylinder(r=2, h=separation+1, center=true,$fn=cylinder_quality);
 
 	for(a=[0,180]) rotate([0,0,a]) {
 	translate([width/4-1.2,height/2-4.5,-4]) 
-		cylinder(r=m3_radius,h=20,$fn=24);
+		cylinder(r=m3_radius,h=20,$fn=cylinder_quality);
 	translate([width/4-1.2,height/2-4.5,6]) 
-		cylinder(r=3.2,h=belt_width+belt_z+3,$fn=48);
+		cylinder(r=3.2,h=belt_width+belt_z+3,$fn=cylinder_quality*2);
 	}
 
 

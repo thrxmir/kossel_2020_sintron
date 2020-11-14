@@ -20,6 +20,8 @@ m6_radius = 6.3/2;
 shoulder_width = 12;
 shoulder_radius = width/2-carriage_width/2;
 
+cylinder_quality=240;
+
 module carriage_adapter()
 {
 	difference() {
@@ -30,32 +32,32 @@ module carriage_adapter()
 			translate([-carriage_width/2,height/6,0])
 				cube([carriage_width,height/3,thickness]);
 			translate([roller_x,roller_y,0])
-				cylinder(r=base_radius,h=thickness,$fn=24);
+				cylinder(r=base_radius,h=thickness,$fn=cylinder_quality);
 		}
 		hull() {
 			translate([-carriage_width/2,-height/2,0])
 				cube([carriage_width,height/3,thickness]);
 			translate([roller_x,-roller_y,0])
-				cylinder(r=base_radius,h=thickness,$fn=24);
+				cylinder(r=base_radius,h=thickness,$fn=cylinder_quality);
 		}
 		hull() {
 			translate([-width/2,0,0])
 				cube([shoulder_width, height/2-shoulder_radius,thickness]);
 			translate([-roller_x,0,0])
-				cylinder(r=base_radius,h=thickness,$fn=24);
+				cylinder(r=base_radius,h=thickness,$fn=cylinder_quality);
 		}
 
 		translate([roller_x,roller_y,thickness])
-			cylinder(r1=base_radius,r2=9/2,h=roller_z-thickness,$fn=24);
+			cylinder(r1=base_radius,r2=9/2,h=roller_z-thickness,$fn=cylinder_quality);
 		translate([roller_x,-roller_y,thickness])
-			cylinder(r1=base_radius,r2=9/2,h=roller_z-thickness,$fn=24);
+			cylinder(r1=base_radius,r2=9/2,h=roller_z-thickness,$fn=cylinder_quality);
 		translate([-roller_x,0,thickness])
-			cylinder(r1=base_radius,r2=9/2,h=roller_z-thickness,$fn=24);
+			cylinder(r1=base_radius,r2=9/2,h=roller_z-thickness,$fn=cylinder_quality);
 
 		translate([-width/2+shoulder_radius,height/2-shoulder_radius,0])
 		difference() {
-			cylinder(r=shoulder_radius,h=thickness,$fn=48);
-			cylinder(r=shoulder_radius-shoulder_width,h=thickness,$fn=48);
+			cylinder(r=shoulder_radius,h=thickness,$fn=cylinder_quality*2);
+			cylinder(r=shoulder_radius-shoulder_width,h=thickness,$fn=cylinder_quality*2);
 			translate([-shoulder_radius,-shoulder_radius,0])
 			cube([shoulder_radius,shoulder_radius,thickness]);
 		}
@@ -72,7 +74,7 @@ module carriage_adapter()
 				cube([6,10,thickness+1]);
 			intersection() {
 				translate([-roller_x,0,thickness])
-					cylinder(r1=base_radius,r2=9/2,h=roller_z-thickness,$fn=24);
+					cylinder(r1=base_radius,r2=9/2,h=roller_z-thickness,$fn=cylinder_quality);
 				translate([-width/2, -height/2+13,0])
 					cube([6,height/2-13,thickness+1]);
 			}
@@ -85,7 +87,7 @@ module carriage_adapter()
 
 		intersection() {
 			translate([-roller_x, 0, 0])
-				cylinder(r=base_radius+3, h=thickness, $fn=24);
+				cylinder(r=base_radius+3, h=thickness, $fn=cylinder_quality);
 			translate([-carriage_width/2,-height/2,0])
 				cube([carriage_width, height, thickness]);
 		}
@@ -93,29 +95,29 @@ module carriage_adapter()
 		for(a=[0,180]) rotate([0,0,a]) {
 		translate([-carriage_width/4+1.2,height/2-4.5,0])
 		{
-			cylinder(r=m3_radius,h=20,$fn=24);
+			cylinder(r=m3_radius,h=20,$fn=cylinder_quality);
 			translate([0, 0, thickness-m3_nut_h])
 			cylinder(r=m3_nut_w/2*1.154734411,h=m3_nut_h+1,$fn=6);
 		}
 		}
 
 		translate([roller_x,roller_y,0]) {
-			cylinder(r=m6_radius,h=20,$fn=24);
-			cylinder(r1=12/2+0.8, r2=2/2+0.8,h=5,$fn=24);
+			cylinder(r=m6_radius,h=20,$fn=cylinder_quality);
+			cylinder(r1=12/2+0.8, r2=2/2+0.8,h=5,$fn=cylinder_quality);
 		}
 		translate([roller_x,-roller_y,0]) {
-			cylinder(r=m6_radius,h=20,$fn=24);
-			cylinder(r1=12/2+0.8, r2=2/2+0.8,h=5,$fn=24);
+			cylinder(r=m6_radius,h=20,$fn=cylinder_quality);
+			cylinder(r1=12/2+0.8, r2=2/2+0.8,h=5,$fn=cylinder_quality);
 		}
 		translate([-roller_x,0,0]) {
-			cylinder(r=m6_radius,h=20,$fn=24);
-			cylinder(r1=12/2+0.8, r2=2/2+0.8,h=5,$fn=24);
+			cylinder(r=m6_radius,h=20,$fn=cylinder_quality);
+			cylinder(r1=12/2+0.8, r2=2/2+0.8,h=5,$fn=cylinder_quality);
 		}
 
 		translate([-width/2, -height/2+13, 0]) {
 		translate([-1, 10/2, (thickness+1)/2])
 			rotate([0,90,0])
-				cylinder(r=m3_radius, h=width/2, $fn=24);
+				cylinder(r=m3_radius, h=width/2, $fn=cylinder_quality);
 
 		translate([6+4+6/2, 10/2, (thickness+1)/2])
 		rotate([0,90,0])
