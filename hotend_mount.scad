@@ -42,7 +42,7 @@ module hotend_mount_base() {
 module hotend_cooler_fan_mount() {
 //rotate([0,0,293]){ // for align with j-head_retainer.stl
   difference(){
-    translate([0, mount_radius, 0]) cube([mount_radius*2.2, adapter_thickness, mount_thickness],center=true);
+    translate([0, mount_radius, 0]) cube([40, adapter_thickness, mount_thickness],center=true);
     translate([16,mount_radius, 0]) rotate([90,90,0])  cylinder(r=m3_wide_radius, h=adapter_thickness, center=true);
     translate([-16,mount_radius, 0]) rotate([90,90,0])  cylinder(r=m3_wide_radius, h=adapter_thickness, center=true);
   };
@@ -64,7 +64,7 @@ module component_cooler_fan_mount() {
 
 
 hotend_mount_base();
-hotend_cooler_fan_mount();
+#hotend_cooler_fan_mount();
 component_cooler_fan_mount();
 rotate([0,0,180])
 component_cooler_fan_mount();
