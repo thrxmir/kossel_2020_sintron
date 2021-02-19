@@ -1,18 +1,6 @@
 include <configuration.scad>;
+include <hotend_mount_config.scad>;
 //translate([-35.1,-12.6,-7]) import("new_stl/j-head_retainer.STL", convexity=3);
-
-// Overall mount dimensions
-mount_radius = 18;
-mount_thickness = 6;
-
-adapter_thickness = 4;
-// Through holes
-hole_radius = 12.5;
-
-// Slot and lip for installation
-slot_radius = 6;
-lip_radius = 8.1;
-lip_thickness = 1;
 
 $fn = 60;
 
@@ -41,12 +29,18 @@ module hotend_mount_base() {
 
 module hotend_cooler_fan_mount() {
 //rotate([0,0,293]){ // for align with j-head_retainer.stl
+  AT = adapter_thickness+2;
   difference(){
-    translate([0, mount_radius, 0]) cube([40, adapter_thickness, mount_thickness],center=true);
-    translate([16,mount_radius, 0]) rotate([90,90,0])  cylinder(r=m3_wide_radius, h=adapter_thickness, center=true);
-    translate([-16,mount_radius, 0]) rotate([90,90,0])  cylinder(r=m3_wide_radius, h=adapter_thickness, center=true);
+    translate([0, mount_radius-2, 0]) cube([40, AT, mount_thickness],center=true);
+    translate([16,mount_radius-2, 0]) rotate([90,90,0])  cylinder(r=m3_wide_radius, h=AT, center=true);
+    #translate([-16,mount_radius-2, 0]) rotate([90,90,0])  cylinder(r=m3_wide_radius, h=AT, center=true);
+    pocket();
+    mirror([1,0,0]) pocket();
   };
 //};
+}
+module pocket() {
+    translate([16,mount_radius-2.6, 0.2]) rotate([90,90,0])  cube([5.8, 6, 2.8],center=true);;
 }
 
 module component_cooler_fan_mount() {
@@ -62,9 +56,8 @@ module component_cooler_fan_mount() {
   };
 }
 
-
 hotend_mount_base();
-#hotend_cooler_fan_mount();
+hotend_cooler_fan_mount();
 component_cooler_fan_mount();
-rotate([0,0,180])
-component_cooler_fan_mount();
+mirror([1, 0, 0]) component_cooler_fan_mount();
+
